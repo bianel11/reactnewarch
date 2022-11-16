@@ -7,7 +7,7 @@ const App = () => {
   return (
     <SafeAreaView>
       <StatusBar barStyle={'dark-content'} />
-      <Text style={{marginLeft: 20, marginTop: 20}}>
+      <Text style={{marginLeft: 20, marginTop: 20, color: 'white', fontWeight: 'bold'}}>
         3+7={currentResult ?? '??'}
       </Text>
       <Button
