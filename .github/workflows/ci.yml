@@ -1,0 +1,67 @@
+name: CI Build and Upload APP
+on:
+  push:
+    branches: [main]
+
+  workflow_dispatch:
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install npm dependencies
+        run: |
+          yarn install 
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+   
+      - name: Cache local Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+            
+      - name: Build Android Release
+        run: |
+          cd android && chmod +x gradlew && ./gradlew assembleRelease  && cd ..
+
+      - name: Upload Apk 64 artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-64
+          path: android/app/build/outputs/apk/release/app-arm64-v8a-release.apk
+
+      - name: Upload Apk 32 artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-32
+          path: android/app/build/outputs/apk/release/app-armeabi-v7a-release.apk
+
+      - name: Upload Apk 64 Emulator artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-all
+          path: android/app/build/outputs/apk/release/app-x86_64-release.apk
+
+      - name: Upload Apk 32 Emulator artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-all
+          path: android/app/build/outputs/apk/release/app-x86-release.apk
+
+      - name: Remove old artifacts
+        uses: c-hive/gha-remove-artifacts@v1
+        with:
+          age: "1 day"
+          skip-tags: true
+          skip-recent: 3
+  
