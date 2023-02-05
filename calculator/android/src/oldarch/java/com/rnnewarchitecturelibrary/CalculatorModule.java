@@ -25,4 +25,9 @@ public class CalculatorModule extends ReactContextBaseJavaModule {
     public void add(int a, int b, Promise promise) {
         CalculatorModuleImpl.add(a, b, promise);
     }
+
+    @ReactMethod
+    public void returnPhoneInfo(Promise promise) {
+        CalculatorModuleImpl.returnPhoneInfo(promise);
+    }
 }

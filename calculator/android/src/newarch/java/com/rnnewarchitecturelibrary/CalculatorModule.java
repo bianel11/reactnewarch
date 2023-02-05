@@ -26,4 +26,9 @@ public class CalculatorModule extends NativeCalculatorSpec {
     public void add(double a, double b, Promise promise) {
         CalculatorModuleImpl.add(a, b, promise);
     }
+
+    @Override
+    public void returnPhoneInfo(Promise promise) {
+        CalculatorModuleImpl.returnPhoneInfo(promise);
+    }
 }

@@ -3,6 +3,7 @@ import {TurboModuleRegistry} from 'react-native';
 
 export interface Spec extends TurboModule {
   add(a: number, b: number): Promise<number>;
+  returnPhoneInfo(): Promise<any>; // TODO: define the return type
 }
 
 export default TurboModuleRegistry.get<Spec>(

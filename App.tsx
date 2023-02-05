@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StatusBar, Text, Button } from 'react-native';
+import { SafeAreaView, StatusBar, Text, Button, Alert } from 'react-native';
 import Calculator from 'calculator/src/index';
 
 function App() {
@@ -21,7 +21,8 @@ function App() {
         title="Compute"
         onPress={async () => {
           const result = await Calculator.add(currentResult, 7);
-          console.log(result);
+          const phoneInfo = await Calculator.returnPhoneInfo();
+          Alert.alert('Phone Info', JSON.stringify(JSON.parse(phoneInfo), null, 2));
           setResult(result);
         }}
       />
