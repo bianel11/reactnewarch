@@ -6,5 +6,5 @@ export interface Spec extends TurboModule {
 }
 
 export default TurboModuleRegistry.get<Spec>(
-  'RTNCalculator',
+  'Calculator',
 ) as Spec | null;
