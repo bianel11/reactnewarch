@@ -21,8 +21,9 @@ function App() {
         title="Compute"
         onPress={async () => {
           const result = await Calculator.add(currentResult, 7);
-          const phoneInfo = await Calculator.returnPhoneInfo();
-          Alert.alert('Phone Info', JSON.stringify(JSON.parse(phoneInfo), null, 2));
+          const { brand, version, model } = await Calculator.returnPhoneInfo();
+          console.log('Phone Info', { brand, version, model });
+          Alert.alert('Result', `${brand} ${version} ${model}`);
           setResult(result);
         }}
       />

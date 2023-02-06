@@ -1,1 +1,3 @@
-export default require("./NativeCalculator").default;
+import NativeCalculator from "./NativeCalculator";
+
+export default NativeCalculator;
